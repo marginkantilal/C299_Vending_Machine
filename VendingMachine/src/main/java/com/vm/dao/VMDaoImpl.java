@@ -28,6 +28,7 @@ public class VMDaoImpl implements VendingMachineDAO{
 	
 	public VMDaoImpl() {
 		VENDING_MACHINE_FILE = "VendingMachineItems.txt";
+
 	}
 	public VMDaoImpl(String vendingMachineTextFile) {
 		VENDING_MACHINE_FILE = vendingMachineTextFile;
@@ -35,9 +36,9 @@ public class VMDaoImpl implements VendingMachineDAO{
 	
 	Map<String, Item> Inventory = new HashMap<>();
 
-	//Buy a specific item from the vending machine and return the change
+	//Buy item
 	@Override
-	public Change purchaseItems(String itemName, BigDecimal cash) throws VendingMachinePersistenceException {
+	public Change buyItem(String itemName, BigDecimal cash) throws VendingMachinePersistenceException {
 		loadItem();
 		Item userItem = Inventory.get(itemName);
 		userItem.setInventoryLevel(userItem.getInventoryLevel() - 1);
@@ -56,13 +57,14 @@ public class VMDaoImpl implements VendingMachineDAO{
 		writeItem();
 		return;
 	}
-	
+
 	//Gets all the items from the vending machine
 	@Override
 	public List<Item> getAllItems() throws VendingMachinePersistenceException{
 		loadItem();
 		return new ArrayList<Item>(Inventory.values());
 	}
+	// Get single item
 	@Override
 	public Item getItem(String name) throws VendingMachinePersistenceException {
 		loadItem();

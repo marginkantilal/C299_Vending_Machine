@@ -32,7 +32,7 @@ public class VMDaoStubImpl implements VendingMachineDAO {
 	}
 	
 	@Override
-	public Change purchaseItems(String name, BigDecimal cash) throws VendingMachinePersistenceException{
+	public Change buyItem(String name, BigDecimal cash) throws VendingMachinePersistenceException{
 		if(name.equals(item.getItemName())) {
 			item.setInventoryLevel(item.getInventoryLevel() - 1);
 			return change;
@@ -68,5 +68,6 @@ public class VMDaoStubImpl implements VendingMachineDAO {
 			return null;
 		}
 	}
+
 
 }

@@ -23,15 +23,15 @@
           
           <bean id = "dao" class = "com.vm.dao.VMDaoImpl"></bean>
           
-          <bean id = "auditDao" class = "com.vm.dao.VMImplAuditFileImp"></bean>
+          <bean id = "auditDao" class = "com.vm.dao.VendingMachineAuditFileImpl"></bean>
           
-          <bean id = "serviceLayer" class = "com.vm.service.VMServiceImpl">
+          <bean id = "service" class = "com.vm.service.VMServiceImpl">
           	<constructor-arg ref="dao"></constructor-arg>
           	<constructor-arg ref="auditDao"></constructor-arg>
           </bean>
           
           <bean id = "controller" class = "com.vm.controller.VendingMachineController">
-         	 <constructor-arg ref = "serviceLayer"></constructor-arg>
+         	 <constructor-arg ref = "service"></constructor-arg>
           	 <constructor-arg ref = "view"></constructor-arg>
           </bean>
    

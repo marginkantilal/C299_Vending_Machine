@@ -8,7 +8,7 @@ import com.vm.dto.Item;
 import com.vm.exception.VendingMachinePersistenceException;
 
 public interface VendingMachineDAO {
-	Change purchaseItems(String name, BigDecimal price) throws VendingMachinePersistenceException;
+	Change buyItem(String name, BigDecimal price) throws VendingMachinePersistenceException;
 	List<Item> getAllItems() throws VendingMachinePersistenceException;
 	void addItem(Item item) throws VendingMachinePersistenceException;
 	Item getItem(String name) throws VendingMachinePersistenceException;

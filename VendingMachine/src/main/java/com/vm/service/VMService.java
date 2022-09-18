@@ -15,7 +15,7 @@ import com.vm.exception.NoItemInventoryException;
 import com.vm.exception.VendingMachinePersistenceException;
 
 public interface VMService {
-	Change purchaseItems(String name, BigDecimal cash) throws
+	Change buyItem(String name, BigDecimal cash) throws
 	InsufficientFundsException,
 	NoItemInventoryException,
 	VendingMachinePersistenceException,

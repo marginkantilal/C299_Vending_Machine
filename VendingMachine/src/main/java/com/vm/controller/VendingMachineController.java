@@ -33,7 +33,7 @@ public class VendingMachineController {
   		showAllItems();
   		BigDecimal fundsToBeAdd = view.addFunds();
   		String userChoice = view.chooseItem();
-  		Change change = service.purchaseItems(userChoice, fundsToBeAdd);
+  		Change change = service.buyItem(userChoice, fundsToBeAdd);
   		view.displayChange(change.getCoins());
   		
   		

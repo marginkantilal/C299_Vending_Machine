@@ -13,7 +13,7 @@ import lombok.ToString;
 public class Change {
 	public enum Coin
 	{
-		PENNY, 
+		PENNY(), 
 		NICKEL, 
 		DIME, 
 		QUARTER
@@ -34,4 +34,7 @@ public class Change {
 	public Coin getQuarter() {
 		return Coin.QUARTER;
 	}
+	
+	
+	
 }

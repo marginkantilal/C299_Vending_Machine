@@ -77,25 +77,25 @@ public class VMDaoImpl implements VendingMachineDAO{
 		
 		Change change = new Change();
 		List<Coin> coins = new ArrayList<Coin>();
-		BigDecimal moneyDiff = cash.subtract(itemPrice);
-		change.setTotalChange(moneyDiff);
+		BigDecimal changeAmount = cash.subtract(itemPrice);
+		change.setTotalChange(changeAmount);
 		
-		while(moneyDiff.compareTo(BigDecimal.ZERO) != 0) {
+		while(changeAmount.compareTo(BigDecimal.ZERO) != 0) {
 			
-			if(moneyDiff.compareTo(BigDecimal.valueOf(0.25)) >= 0) {
-				moneyDiff = moneyDiff.subtract(BigDecimal.valueOf(0.25));
+			if(changeAmount.compareTo(BigDecimal.valueOf(0.25)) >= 0) {
+				changeAmount = changeAmount.subtract(BigDecimal.valueOf(0.25));
 				coins.add(change.getQuarter());
 			}
-			else if(moneyDiff.compareTo(BigDecimal.valueOf(0.10)) >= 0) {
-				moneyDiff = moneyDiff.subtract(BigDecimal.valueOf(0.10));
+			else if(changeAmount.compareTo(BigDecimal.valueOf(0.10)) >= 0) {
+				changeAmount = changeAmount.subtract(BigDecimal.valueOf(0.10));
 				coins.add(change.getDime());
 			}
-			else if(moneyDiff.compareTo(BigDecimal.valueOf(0.05)) >= 0) {
-				moneyDiff = moneyDiff.subtract(BigDecimal.valueOf(0.05));
+			else if(changeAmount.compareTo(BigDecimal.valueOf(0.05)) >= 0) {
+				changeAmount = changeAmount.subtract(BigDecimal.valueOf(0.05));
 				coins.add(change.getNickel());
 			}
-			else if(moneyDiff.compareTo(BigDecimal.valueOf(0.01)) >= 0) {
-				moneyDiff = moneyDiff.subtract(BigDecimal.valueOf(0.01));
+			else if(changeAmount.compareTo(BigDecimal.valueOf(0.01)) >= 0) {
+				changeAmount = changeAmount.subtract(BigDecimal.valueOf(0.01));
 				coins.add(change.getPenny());
 			}
 		}

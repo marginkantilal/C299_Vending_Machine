@@ -1,2 +1,2 @@
-Coke::1.00::8
-Test ONE::1.00::8
+Sprite::0.80::7
+Walker::1.00::6

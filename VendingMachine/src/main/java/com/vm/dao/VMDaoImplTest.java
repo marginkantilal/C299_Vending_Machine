@@ -59,16 +59,16 @@ class VMDaoImplTest {
 		
 		assertEquals(receivedAddedItem.getItemName(), item.getItemName(), "Checking item names");
 		assertEquals(receivedAddedItem.getPrice(), item.getPrice(), "Checking item prices");
-		assertEquals(receivedAddedItem.getInventoryLevel(), item.getInventoryLevel(), "Check inventory levels");
+		assertEquals(receivedAddedItem.getInventoryLevel(), item.getInventoryLevel(), "Check inventory levels and should be 10");
 		
 		BigDecimal cash = new BigDecimal("3.00");
 		
-		Change receivedChange = testDao.buyItem(item.getItemName(), cash);
+		Change giveChange = testDao.buyItem(item.getItemName(), cash);
 		BigDecimal price = item.getPrice();
-		Item receivedItem = testDao.getItem(item.getItemName());
+		Item getItem = testDao.getItem(item.getItemName());
 		
-		assertEquals(receivedItem.getInventoryLevel() + 1, item.getInventoryLevel(), "Inventory level must be reduced by 1");
-		assertEquals(cash.subtract(price), receivedChange.getTotalChange(), "Change returned must be correct");
+		assertEquals(getItem.getInventoryLevel() + 1, item.getInventoryLevel(), "Inventory level must be reduced by 1");
+		assertEquals(cash.subtract(price), giveChange.getTotalChange(), "Change returned must be correct");
 	}
 	
 	
@@ -76,46 +76,42 @@ class VMDaoImplTest {
 	public void testAddBuyItems() throws VendingMachinePersistenceException  {
 		
 		Item item = new Item();
-		item.setItemName("Test ONE");
+		item.setItemName("Walker");
 		item.setPrice(new BigDecimal("1.00"));
-		item.setInventoryLevel(8);
+		item.setInventoryLevel(7);
 		
 		Item Moreitem = new Item();
-		Moreitem.setItemName("Test TWO");
-		Moreitem.setPrice(new BigDecimal("1.00"));
+		Moreitem.setItemName("Sprite");
+		Moreitem.setPrice(new BigDecimal("0.80"));
 		Moreitem.setInventoryLevel(8);
 		
 		testDao.addItem(item);
 		testDao.addItem(Moreitem);
-		System.out.println(testDao.getAllItems());
 		
 		List<Item>items = testDao.getAllItems();
-		
-		
 		assertNotNull(items, "The list should not be empty or null");
 		assertEquals(2, items.size(), "It should only have 2 items in the list");
 		assertTrue(items.contains(item), "Item Walker should be in the list");
 		assertTrue(items.contains(Moreitem), "Item Sprite should be in the list");
 		
 		
-		BigDecimal cash = new BigDecimal("15.00");
-		
+		BigDecimal cash = new BigDecimal("5.00");
 		
 		Change getChangeForItemOne = testDao.buyItem(item.getItemName(), cash);
-		Change getChangeForItemTwo = testDao.buyItem(item.getItemName(), cash);
+		Change getChangeForItemTwo = testDao.buyItem(Moreitem.getItemName(), cash);
 
 		BigDecimal priceForItemOne = item.getPrice();
-		BigDecimal priceForItemTwo = item.getPrice();
+		BigDecimal priceForItemTwo = Moreitem.getPrice();
 		
 		Item getItemOne = testDao.getItem(item.getItemName());
-		Item getItemTwo = testDao.getItem(item.getItemName());
+		Item getItemTwo = testDao.getItem(Moreitem.getItemName());
 
-		
-		assertEquals(getItemOne.getInventoryLevel() + 1, item.getInventoryLevel(), "Inventory level must be reduced by 1");
-		assertEquals(getItemTwo.getInventoryLevel() + 1, item.getInventoryLevel(), "Inventory level must be reduced by 1");
 
-		assertEquals(cash.subtract(priceForItemOne), getChangeForItemOne.getTotalChange(), "Change returned must be correct");
-		assertEquals(cash.subtract(priceForItemTwo), getChangeForItemTwo.getTotalChange(), "Change returned must be correct");
+		assertEquals(getItemOne.getInventoryLevel() + 1, item.getInventoryLevel(), "Quantity should be reduced by 1");
+		assertEquals(getItemTwo.getInventoryLevel() + 1, Moreitem.getInventoryLevel(), "Quantity should be reduced by 2");
+
+		assertEquals(cash.subtract(priceForItemOne), getChangeForItemOne.getTotalChange(), "Correct Change  must be given after buying item one");
+		assertEquals(cash.subtract(priceForItemTwo), getChangeForItemTwo.getTotalChange(), "Correct Change  must be given");
 
 	}
 	

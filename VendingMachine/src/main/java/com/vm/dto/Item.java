@@ -15,40 +15,34 @@ public class Item {
 	private BigDecimal price;
 	private int inventoryLevel;
 	
+	
+	
 	@Override
 	public String toString() {
-		return "Item [itemName=" + itemName + ", price=" + price + ", inventoryLevel=" + inventoryLevel + "]";
+		return "Item [itemName=" + itemName + ", price=" + price + ", inventoryLevel=" + inventoryLevel
+				+ ", getItemName()=" + getItemName() + ", getPrice()=" + getPrice() + ", getInventoryLevel()="
+				+ getInventoryLevel() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(inventoryLevel, itemName, price);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Item)) {
+			return false;
+		}
+		Item other = (Item) obj;
+		return inventoryLevel == other.inventoryLevel && Objects.equals(itemName, other.itemName)
+				&& Objects.equals(price, other.price);
 	}
 
-	@Override
-    public int hashCode() {
-        return Objects.hash(itemName, price);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Item other = (Item) obj;
-        if (this.itemName != other.itemName) {
-            return false;
-        }
-        if (!Objects.equals(this.inventoryLevel, other.inventoryLevel)) {
-            return false;
-        }
-        if (!Objects.equals(this.price, other.price)) {
-            return false;
-        }
-       
-        return true;
-    }
-    
+	
+	
+	    
 
 }
